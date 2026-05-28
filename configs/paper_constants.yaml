@@ -1,0 +1,89 @@
+project:
+  name: LympClear
+  manuscript_title: Cross-anatomic Transfer Learning for Venous Postprocessing at Upper-Extremity MR Lymphangiography
+  article_type: Original Research
+
+study_design:
+  lower_extremity_source_domain:
+    role: pretraining
+    patients: 1022
+    dynamic_phases: 6162
+    centers: 4
+    collection_years: "2007-2024"
+    nnunet_dataset: Dataset025_leg
+  upper_extremity_target_domain:
+    role: adaptation_and_testing
+    patients: 255
+    dynamic_phases: 1581
+    centers: 4
+    collection_years: "2009-2025"
+    nnunet_dataset: Dataset029_upperlimb
+    development_set:
+      center: MC1
+      patients: 127
+    external_test_sets:
+      MC2:
+        patients: 42
+      MC3:
+        patients: 51
+      MC4:
+        patients: 35
+
+model:
+  architecture: 3D nnU-Net
+  nnunet_configuration: 3d_fullres
+  final_fold: 0
+  final_checkpoint: checkpoint_best.pth
+  gpu_reported_in_manuscript: NVIDIA Tesla V100
+  batch_size_reported_in_manuscript: 2
+  initial_learning_rate_reported_in_manuscript: 0.001
+  scheduler_reported_in_manuscript: cosine annealing
+  max_epochs_reported_in_manuscript: 500
+  fine_tuning_command: nnUNetv2_train with -pretrained_weights
+  pretrained_weight_loading: all layers except segmentation head initialized from lower-extremity model
+
+learning_curve:
+  upper_extremity_labeled_patients: [1, 2, 5, 10, 20, 40, 80, 127]
+  primary_evaluation_phase: 6
+  phase_definition: Phase 6 corresponds to the 30-minute postcontrast acquisition when Phase 0 is precontrast.
+  key_claim:
+    transfer_n10_dice_range_external: "0.76-0.83"
+    scratch_n127_dice_range_external: "0.72-0.80"
+
+postprocessing:
+  venous_suppression:
+    method: local_nonvenous_median_replacement
+    kernel_size: [3, 3, 3]
+    radius: 1
+  venous_highlighting:
+    method: preserve_grayscale_with_venous_overlay
+  geometry_and_metadata: preserve geometry and DICOM metadata for synchronized clinical review where possible
+
+reader_study:
+  readers: 3
+  design: paired randomized blinded comparison
+  suppression_endpoints:
+    - lymphatic_trackability
+    - image_quality
+    - residual_venous_contamination
+    - diagnostic_confidence
+    - identifiable_lymphatic_vessel_count
+    - interpretation_time
+  preference_test: 2-alternative forced-choice
+  observed_2afc_comparisons: 188
+  preferred_suppressed: 160
+  preferred_suppressed_percent: 85.1
+  complex_case_time_minutes:
+    original: 12.0
+    suppressed: 4.6
+  simple_case_time_minutes:
+    original: 10.5
+    suppressed: 4.7
+  planning_mode_endpoints:
+    - candidate_site_conspicuity
+    - site_identification_confidence
+    - planning_adequacy
+    - communication_utility
+  statistics:
+    model: multireader_multicase_mixed_effects
+    multiple_comparison: Holm-Bonferroni

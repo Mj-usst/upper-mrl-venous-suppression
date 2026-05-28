@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "LympClear: Cross-anatomic Transfer Learning for Venous Postprocessing at Upper-Extremity MR Lymphangiography"
+message: "If you use this software, please cite the associated manuscript."
+type: software
+authors:
+  - family-names: Ma
+    given-names: Jian
+repository-code: "https://github.com/Mj-usst/LympClear"
+license: "Apache-2.0"
+version: "1.0.0"
+date-released: "2026-05-07"
+keywords:
+  - MR lymphangiography
+  - nnU-Net
+  - venous suppression
+  - venous highlighting
+  - transfer learning

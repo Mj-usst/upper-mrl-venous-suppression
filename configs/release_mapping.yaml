@@ -1,0 +1,39 @@
+# Values confirmed for the public release.
+
+nnunet:
+  raw_env: nnUNet_raw
+  preprocessed_env: nnUNet_preprocessed
+  results_env: nnUNet_results
+  trainer: nnUNetTrainer
+  plans: nnUNetPlans
+  configuration: 3d_fullres
+  fold: 0
+  checkpoint: checkpoint_best.pth
+
+confirmed_datasets:
+  lower_limb_pretraining:
+    nnunet_dataset_name: Dataset025_leg
+    nnunet_dataset_id: 25
+    role: manuscript lower-extremity source-domain pretrained model
+    public_weight_filename: LympClear_lower_pretrained_Dataset025_leg_fold0_checkpoint_best.zip
+  upper_limb_full_development:
+    nnunet_dataset_name: Dataset029_upperlimb
+    nnunet_dataset_id: 29
+    role: upper-extremity development/full dataset
+  upper_limb_finetune10:
+    nnunet_dataset_name: Dataset033_finetune10
+    nnunet_dataset_id: 33
+    role: 10-case upper-extremity fine-tuned model
+    public_weight_filename: LympClear_upper_finetune10_Dataset033_finetune10_fold0_checkpoint_best.zip
+  upper_limb_finetune127_final:
+    nnunet_dataset_name: Dataset038_finetune127
+    nnunet_dataset_id: 38
+    role: final 127-case upper-extremity fine-tuned model
+    public_weight_filename: LympClear_upper_finetune127_Dataset038_finetune127_fold0_checkpoint_best.zip
+
+release_policy:
+  publish_code: true
+  publish_lower_limb_pretrained_weight: true
+  publish_upper_limb_final_weight: true
+  publish_upper_limb_10case_weight: optional_but_recommended_for_learning_curve_claim
+  publish_clinical_images_or_masks: false

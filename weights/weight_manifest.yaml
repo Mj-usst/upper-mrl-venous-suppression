@@ -1,0 +1,23 @@
+release_version: v1.0.0
+fold: 0
+checkpoint: checkpoint_best.pth
+configuration: 3d_fullres
+weights:
+  - name: lower
+    dataset_id: 25
+    dataset_name: Dataset025_leg
+    description: Lower-extremity source-domain pretrained model
+    filename: LympClear_lower_pretrained_Dataset025_leg_fold0_checkpoint_best.zip
+    sha256: TO_BE_FILLED_AFTER_EXPORT
+  - name: upper_n10
+    dataset_id: 33
+    dataset_name: Dataset033_finetune10
+    description: 10-case upper-extremity fine-tuned model
+    filename: LympClear_upper_finetune10_Dataset033_finetune10_fold0_checkpoint_best.zip
+    sha256: TO_BE_FILLED_AFTER_EXPORT
+  - name: upper_final
+    dataset_id: 38
+    dataset_name: Dataset038_finetune127
+    description: Final 127-case upper-extremity fine-tuned model
+    filename: LympClear_upper_finetune127_Dataset038_finetune127_fold0_checkpoint_best.zip
+    sha256: TO_BE_FILLED_AFTER_EXPORT

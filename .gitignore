@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.env
+.venv/
+env/
+venv/
+
+# Outputs and local configs
+outputs/
+runs/
+logs/
+configs/paths.local.yaml
+
+# nnU-Net working directories: do not upload raw/preprocessed/results workspaces
+nnUNet_raw/
+nnUNet_preprocessed/
+nnUNet_results/
+DATASET/
+
+# Clinical imaging data: never commit real patient-derived data
+*.dcm
+*.ima
+*.nii
+*.nii.gz
+*.nrrd
+*.mha
+*.mhd
+*.mgz
+*.npz
+*.npy
+
+# Allow tiny synthetic examples if explicitly force-added
+!examples/synthetic_case/README.md
+!examples/synthetic_case/create_synthetic_case.py
+!examples/synthetic_case/dataset.json
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large model archives should be managed by Git LFS or GitHub Releases.
+# They are not ignored because this project intentionally publishes selected weights.

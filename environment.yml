@@ -1,0 +1,22 @@
+name: lympclear
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - scikit-image
+  - nibabel
+  - simpleitk
+  - pydicom
+  - imageio
+  - tqdm
+  - pyyaml
+  - statsmodels
+  - matplotlib
+  - pytest
+  - pip:
+      - nnunetv2
