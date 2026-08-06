@@ -2,6 +2,7 @@ project:
   name: LympClear
   manuscript_title: Cross-anatomic Transfer Learning for Venous Postprocessing at Upper-Extremity MR Lymphangiography
   article_type: Original Research
+  public_repository_scope: model_training_inference_segmentation_evaluation_and_postprocessing_only
 
 study_design:
   lower_extremity_source_domain:
@@ -59,31 +60,8 @@ postprocessing:
     method: preserve_grayscale_with_venous_overlay
   geometry_and_metadata: preserve geometry and DICOM metadata for synchronized clinical review where possible
 
-reader_study:
-  readers: 3
-  design: paired randomized blinded comparison
-  suppression_endpoints:
-    - lymphatic_trackability
-    - image_quality
-    - residual_venous_contamination
-    - diagnostic_confidence
-    - identifiable_lymphatic_vessel_count
-    - interpretation_time
-  preference_test: 2-alternative forced-choice
-  observed_2afc_comparisons: 188
-  preferred_suppressed: 160
-  preferred_suppressed_percent: 85.1
-  complex_case_time_minutes:
-    original: 12.0
-    suppressed: 4.6
-  simple_case_time_minutes:
-    original: 10.5
-    suppressed: 4.7
-  planning_mode_endpoints:
-    - candidate_site_conspicuity
-    - site_identification_confidence
-    - planning_adequacy
-    - communication_utility
-  statistics:
-    model: multireader_multicase_mixed_effects
-    multiple_comparison: Holm-Bonferroni
+not_in_public_repository:
+  - reader_study_data
+  - preference_test_results
+  - reader_study_statistical_analysis
+  - grad_cam_analysis
