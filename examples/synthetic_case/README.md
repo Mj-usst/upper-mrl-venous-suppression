@@ -1,9 +1,14 @@
 # Synthetic demo case
 
-Run:
+Generate the synthetic image and mask:
 
 ```bash
-python scripts/12_generate_synthetic_demo.py
+python scripts/11_generate_synthetic_demo.py
+```
+
+Run venous postprocessing:
+
+```bash
 python scripts/08_postprocess_suppression_highlighting.py \
   --image examples/synthetic_case/imagesTs/synthetic_upper_mrl_0000.nii.gz \
   --mask examples/synthetic_case/labelsTs/synthetic_upper_mrl.nii.gz \
@@ -11,4 +16,4 @@ python scripts/08_postprocess_suppression_highlighting.py \
   --mode both
 ```
 
-This synthetic demo is not clinical data.
+The synthetic example contains no clinical or patient-derived data.
