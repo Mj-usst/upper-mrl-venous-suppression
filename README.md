@@ -10,9 +10,11 @@ LympClear is an nnU-Net-based research pipeline for venous segmentation and dual
 4. venous suppression using a local nonvenous median replacement;
 5. venous highlighting for planning-oriented visualization;
 6. MIP/cine generation;
-7. Dice evaluation, learning-curve summarization, and reader-study statistics.
+7. Dice evaluation and learning-curve summarization.
 
-This repository was prepared to match the manuscript:
+This public repository is limited to model-related code, configuration, aggregate segmentation results, and image postprocessing. Reader-study data, preference-test results, reader-study statistical analyses, and Grad-CAM analyses are not included.
+
+This repository was prepared to match the model-related methods in the manuscript:
 
 > Cross-anatomic Transfer Learning for Venous Postprocessing at Upper-Extremity MR Lymphangiography
 
@@ -64,10 +66,10 @@ conda env create -f environment.yml
 conda activate lympclear
 ```
 
-If you install manually:
+For manual installation:
 
 ```bash
-pip install nnunetv2 nibabel SimpleITK pydicom numpy pandas scipy scikit-image imageio tqdm statsmodels matplotlib PyYAML
+pip install nnunetv2 nibabel SimpleITK pydicom numpy pandas scipy scikit-image imageio tqdm matplotlib PyYAML
 pip install -e .
 ```
 
@@ -133,7 +135,7 @@ bash scripts/03_train_scratch.sh --dataset-id 29 --fold 0 --config 3d_fullres
 
 ## Fine-tuning from the lower-extremity pretrained model
 
-This matches the release confirmation: direct nnU-Net v2 fine-tuning with `-pretrained_weights`.
+This repository uses direct nnU-Net v2 fine-tuning with `-pretrained_weights`.
 
 ```bash
 bash scripts/04_finetune_from_lower_limb.sh \
@@ -143,9 +145,22 @@ bash scripts/04_finetune_from_lower_limb.sh \
   --pretrained-checkpoint "$nnUNet_results/Dataset025_leg/nnUNetTrainer__nnUNetPlans__3d_fullres/fold_0/checkpoint_best.pth"
 ```
 
+## Segmentation evaluation
+
+Patient-level Dice values can be calculated and summarized with bootstrap confidence intervals using:
+
+```bash
+python scripts/09_evaluate_dice.py \
+  --pairs-csv /path/to/prediction_label_pairs.csv \
+  --output-csv outputs/patient_level_dice.csv \
+  --summary-csv outputs/dice_summary.csv
+```
+
+The aggregate learning-curve values reported in the manuscript are provided in `results/learning_curve_table2.csv`.
+
 ## Export model weights for GitHub Release
 
-Because trained model weights were not uploaded to this ChatGPT session, the generated repository contains the weight manifest and export scripts, but not the actual `.pth`/`.zip` weights. On your workstation/server, run:
+Because trained model weights were not uploaded to the generated repository, the repository contains the weight manifest and export scripts but not the actual `.pth`/`.zip` weights. On the training workstation or server, run:
 
 ```bash
 python scripts/14_package_weights_for_release.py \
@@ -165,11 +180,11 @@ weights/LympClear_upper_finetune127_Dataset038_finetune127_fold0_checkpoint_best
 weights/weight_manifest.yaml
 ```
 
-For GitHub, upload large model archives through **GitHub Releases** or **Git LFS** rather than ordinary commits.
+Upload large model archives through GitHub Releases or Git LFS rather than ordinary commits.
 
 ## Data availability
 
-Clinical imaging data and manual masks are not included because they contain sensitive patient-derived medical information and are subject to institutional data-governance restrictions. This repository includes code, configuration templates, aggregate result tables, and synthetic examples only.
+Clinical imaging data and manual masks are not included because they contain sensitive patient-derived medical information and are subject to institutional data-governance restrictions. This repository includes model-related code, configuration templates, aggregate segmentation result tables, and synthetic examples only.
 
 ## Clinical disclaimer
 
