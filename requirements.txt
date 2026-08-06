@@ -9,6 +9,5 @@ pydicom
 imageio
 tqdm
 PyYAML
-statsmodels
 matplotlib
 pytest
