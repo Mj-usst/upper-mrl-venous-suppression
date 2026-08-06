@@ -1,6 +1,6 @@
 # Data format
 
-LympClear uses nnU-Net v2 data conventions.
+LympClear follows the nnU-Net v2 data convention.
 
 ## Folder structure
 
@@ -18,9 +18,9 @@ nnUNet_raw/
         └── case101_0000.nii.gz
 ```
 
-## Channel naming
+## Channel and label definitions
 
-This release assumes a single image channel:
+The input contains one postcontrast T1-weighted MRL channel:
 
 ```json
 {
@@ -30,10 +30,10 @@ This release assumes a single image channel:
 }
 ```
 
-## Phase handling
+## Dynamic phases
 
-The manuscript reports that training used all dynamic phases per patient and the primary learning-curve evaluation was performed on phase 6. To avoid leakage, all phases from the same patient should remain in the same partition.
+All dynamic phases from the same patient must remain in the same training, validation, or test partition to prevent information leakage. Phase 6 corresponds to the 30-minute postcontrast acquisition when phase 0 is precontrast.
 
 ## Privacy
 
-Do not commit raw DICOM files, real NIfTI files, manual masks, or patient-level CSV metadata.
+Clinical images, manual masks, and patient-level metadata must be stored outside the repository.
