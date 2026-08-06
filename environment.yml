@@ -15,7 +15,6 @@ dependencies:
   - imageio
   - tqdm
   - pyyaml
-  - statsmodels
   - matplotlib
   - pytest
   - pip:
