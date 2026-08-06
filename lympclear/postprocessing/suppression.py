@@ -21,27 +21,25 @@ def suppress_venous_signal(
 ) -> np.ndarray:
     """Suppress venous signal using local nonvenous median replacement.
 
-    The manuscript-defined suppression is a 3 × 3 × 3 local median computed from
-    neighboring nonvenous voxels. With radius=1, every venous voxel is replaced by
-    the median intensity of voxels inside the 3 × 3 × 3 neighborhood that are not
-    labeled as venous. If no nonvenous voxel is available, the original intensity is
-    retained.
+    With ``radius=1``, each venous voxel is replaced by the median intensity
+    of nonvenous voxels within a 3 × 3 × 3 neighborhood. If no nonvenous voxel
+    is available, the original intensity is retained.
 
     Parameters
     ----------
     image:
-        3D image volume.
+        Three-dimensional image volume.
     venous_mask:
-        3D binary venous mask. Nonzero values are treated as vein.
+        Three-dimensional binary venous mask. Nonzero values are treated as vein.
     radius:
-        Neighborhood radius. radius=1 corresponds to 3 × 3 × 3.
+        Neighborhood radius. ``radius=1`` corresponds to 3 × 3 × 3.
     show_progress:
-        Display tqdm progress bar.
+        Display a progress bar.
 
     Returns
     -------
     np.ndarray
-        Venous-suppressed image with the same shape as input.
+        Venous-suppressed image with the same shape as the input.
     """
     if image.ndim != 3:
         raise ValueError(f"Expected 3D image, got shape {image.shape}")
