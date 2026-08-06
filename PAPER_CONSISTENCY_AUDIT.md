@@ -1,10 +1,10 @@
-# Paper-consistency audit
+# Model-code consistency audit
 
-This file records how the public repository maps to the manuscript.
+This file records how the public repository maps to the model-related methods and results in the manuscript.
 
 ## Manuscript-to-repository mapping
 
-| Manuscript item | Repository implementation |
+| Manuscript model item | Repository implementation |
 |---|---|
 | 1022 lower-extremity MRL cases / 6162 dynamic phases for source-domain pretraining | `configs/paper_constants.yaml` and `configs/release_mapping.yaml` |
 | 255 upper-extremity MRL cases / 1581 dynamic phases for adaptation and testing | `configs/paper_constants.yaml` |
@@ -17,17 +17,29 @@ This file records how the public repository maps to the manuscript.
 | Final fold and checkpoint | `fold_0`, `checkpoint_best.pth` in `configs/release_mapping.yaml` |
 | Direct nnU-Net v2 fine-tuning with `-pretrained_weights` | `scripts/04_finetune_from_lower_limb.sh` |
 | Primary evaluation phase: phase 6 | `configs/paper_constants.yaml`; reflected in result table notes |
+| Patient-level Dice with bootstrap 95% confidence intervals | `lympclear/metrics/dice.py`, `scripts/09_evaluate_dice.py` |
+| Aggregate learning-curve results | `results/learning_curve_table2.csv` and `results/key_results_summary.json` |
 | Venous suppression | `lympclear/postprocessing/suppression.py`, `scripts/08_postprocess_suppression_highlighting.py` |
 | Venous highlighting | `lympclear/postprocessing/highlighting.py`, `scripts/08_postprocess_suppression_highlighting.py` |
 | MIP/cine generation | `lympclear/visualization/mip.py`, `scripts/10_make_mip_cine.py` |
-| Dice with bootstrap 95% CI | `lympclear/metrics/dice.py`, `scripts/09_evaluate_dice.py` |
-| Reader-study mixed-effects analysis and Holm-Bonferroni correction | `scripts/11_reader_study_stats.py` |
 | PACS deployment concept | Documented in `docs/deployment_dicom_workflow.md`; no private PACS endpoint is included |
 | Clinical limitations | `docs/model_card.md` and README disclaimer |
 
-## Known non-included items
+## Public release scope
 
-The repository does **not** include clinical DICOM/NIfTI data, manual masks, PACS configuration, patient-level metadata, or actual trained weights in this generated ChatGPT artifact. The weight-release scripts are included; the actual weights must be exported on the user's training server.
+The public repository is limited to model training, transfer learning, inference, segmentation evaluation, aggregate learning-curve results, and image postprocessing.
+
+The following manuscript components are intentionally not included:
+
+- reader-study source data and ratings;
+- paired-preference-test results;
+- reader-study statistical-analysis code;
+- Grad-CAM analysis code and derived maps;
+- clinical DICOM/NIfTI data and manual masks;
+- patient-level metadata;
+- hospital-specific PACS configuration.
+
+Actual trained weights are not currently committed to the repository. The weight-release scripts are included, and the weights must be exported from the original training server before publication through GitHub Releases or Git LFS.
 
 ## Release-level verification commands
 
