@@ -1,12 +1,8 @@
 # Inference protocol
 
-## 1. Install public model archive
+Before inference, ensure that the trained nnU-Net model is available under `nnUNet_results`.
 
-```bash
-nnUNetv2_install_pretrained_model_from_zip weights/LympClear_upper_finetune127_Dataset038_finetune127_fold0_checkpoint_best.zip
-```
-
-## 2. Predict venous mask
+## Predict the venous mask
 
 ```bash
 bash scripts/07_predict_upper_final.sh \
@@ -14,7 +10,7 @@ bash scripts/07_predict_upper_final.sh \
   --output outputs/pred_venous_mask
 ```
 
-## 3. Generate postprocessed outputs
+## Generate venous-suppressed and venous-highlighted outputs
 
 ```bash
 python scripts/08_postprocess_suppression_highlighting.py \
@@ -24,7 +20,7 @@ python scripts/08_postprocess_suppression_highlighting.py \
   --mode both
 ```
 
-## 4. Create MIP/cine
+## Create MIP or cine outputs
 
 ```bash
 python scripts/10_make_mip_cine.py \
