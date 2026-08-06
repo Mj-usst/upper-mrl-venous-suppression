@@ -134,7 +134,7 @@ results/       Aggregate segmentation results
 
 ## Data and model availability
 
-Clinical images, manual masks, patient-level metadata, and trained model weights are not distributed in this repository because of institutional data-governance and privacy restrictions.
+Clinical images, manual masks, and patient-level metadata are not distributed because of privacy and institutional data-governance restrictions. Trained model weights are not included in this repository.
 
 ## Intended use
 
